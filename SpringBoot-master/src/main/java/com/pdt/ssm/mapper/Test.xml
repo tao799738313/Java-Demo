@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这个namespace + 下面的id 就是一个完整的路径，在dao层我们写了完整的路径之后mybatis就是映射这个文件中的相关sql语句 -->
+<mapper namespace="mapper.TestDao">
+    <!-- parameterType就是你接受的参数的类型， -->
+    <!-- 添加用户信息 -->
+    <select id="testByXml" resultMap="TestBeanMap">
+      select USER_ID,USER_NAME,USER_PASSWORD,USER_EMAIL FROM t_test;
+    </select>
+    <resultMap id="TestBeanMap" type="com.pdt.ssm.bean.TestBean">
+        <id property="userId" column="USER_ID"></id>
+        <result property="userName" column="USER_NAME"></result>
+        <result property="userPassword" column="USER_PASSWORD"></result>
+        <result property="userEmail" column="USER_EMAIL"></result>
+    </resultMap>
+</mapper>

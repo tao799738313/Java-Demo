@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2003-2019, CKSource - Frederico Knabben. All rights reserved.
+For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<title>测试</title>
+	<link rel="stylesheet" href="css/editormd.css" />
+</head>
+<body>
+<div id="test-editormd">
+	<textarea name="content"  style="display:none;"></textarea>
+</div>
+<script src="lib/jquery.min.js"></script>
+<script src="editormd.js"></script>
+<script>
+	var testEditor;
+	$(function() {
+		$.get("examples/test.md", function(md){
+			testEditor = editormd("test-editormd", {
+				width: "98%",
+				height: 730,
+				path : 'lib/', //你的path路径（原资源文件中lib包在我们项目中所放的位置）
+				markdown :md,
+				codeFold : true,
+                watch:true,   // 双屏对比
+                syncScrolling: false,  //滚动模式，异步，默认同步
+                // theme: "dark",//工具栏主题
+                // editorTheme: "pastel-on-dark",//编辑主题 3024-night/
+                // previewTheme: "dark",//预览主题
+				saveHTMLToTextarea : true,  // 保存 HTML 到 Textarea
+				searchReplace : true,
+                toolbar:true,      //工具栏 ,true显示，默认true
+				htmlDecode : "style,script,iframe|on*",  // 开启 HTML 标签解析，为了安全性，默认不开启
+				emoji : true,
+				taskList : true,
+                previewCodeHighlight : true, // 预览 HTML 的代码块高亮，默认开启
+				tocm : true,         // Using [TOCM]
+				tex : true,                   // 开启科学公式TeX语言支持，默认关闭
+				flowChart : true,             // 开启流程图支持，默认关闭
+				sequenceDiagram : true,       // 开启时序/序列图支持，默认关闭,
+				dialogLockScreen : false,//设置弹出层对话框不锁屏，全局通用，默认为true
+				dialogShowMask : false,//设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+				dialogDraggable : false,//设置弹出层对话框不可拖动，全局通用，默认为true
+				dialogMaskOpacity : 0.4, //设置透明遮罩层的透明度，全局通用，默认值为0.1
+				dialogMaskBgColor : "#000",//设置透明遮罩层的背景颜色，全局通用，默认为#fff
+				imageUpload : true,
+				imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+				imageUploadURL : "/markdown",  //上传图片接口
+                placeholder:'本编辑器支持Markdown编辑，左边编写，右边预览',  //默认显示的文字，这里就不解释了
+                toolbarIcons : function() {  //自定义工具栏，后面有详细介绍
+                    return editormd.toolbarModes['full']; // full, simple, mini
+                    //return ["undo","redo","|","bold","del","italic","quote","ucwords","uppercase","lowercase","|","h1","h2","h3","h4","h5","h6","|","list-ul","list-ol","hr","|","link","reference-link","image","code","preformatted-text","code-block","table","datetime","emoji","html-entities","pagebreak","|","goto-line","watch","preview","fullscreen","clear","search","|","help","info"]
+                },
+				onload : function() {
+					//修改了原本的文件上传弹窗，文件在plugins/image-dialog，搜索imageUploadURL
+					console.log('onload', this);
+				}
+			});
+		});
+	})
+</script>
+<script>
+    // https://www.cnblogs.com/softidea/p/7808214.html
+    // 获取数据  testEditor.getMarkdown();
+    //获取html值  testEditor.getHTML()；
+    // 注意：editor.md期望你上传图片的服务返回如下json格式的内容
+    // {
+    //     success : 0 | 1, //0表示上传失败;1表示上传成功
+    //         message : "提示的信息",
+    //     url     : "图片地址" //上传成功时才返回
+    // }
+    // testEditor.gotoLine(90);//转到第90行
+    // testEditor.show();//显示编辑器
+    // testEditor.hide();//隐藏编辑器
+    // alert(testEditor.getMarkdown());//获取编辑器内容（不含html）
+    // alert(testEditor.getHTML());//获取编辑器html内容
+    // testEditor.watch();//开启双窗口对比
+    // testEditor.unwatch();//取消双窗口对比
+    // testEditor.previewing();//预览效果
+    // testEditor.fullscreen();//全屏（按ESC取消）
+    // testEditor.showToolbar();//显示工具栏
+    // testEditor.hideToolbar();//隐藏工具栏
+    // testEditor.config({
+    //     tocDropdown   : true,
+    //     tocTitle      : "目录 Table of Contents",
+    // });//TOC下拉菜单
+    // testEditor.config("tocDropdown", false);//TOC默认
+</script>
+</body>
+</html>
