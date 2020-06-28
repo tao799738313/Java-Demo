@@ -18,4 +18,3 @@ public class TicketServiceImpl implements TicketService{
         System.out.println(ticket);
         return ticket;
     }
-}
