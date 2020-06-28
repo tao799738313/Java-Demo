@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="pers.hmm.shop.manager.mapper.sys.UserMapper">
+    <resultMap id="userMap" type="userInfo">
+        <id property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="roles" ofType="role">
+            <id property="roleId" column="role_id"/>
+            <result column="role_name" property="roleName"/>
+            <result column="role_desc" property="roleDesc"/>
+            <result column="creator" property="creator"/>
+            <result column="create_time" property="createTime"/>
+        </collection>
+    </resultMap>
+    <select id="findByUsername" resultMap="userMap">
+        select a.*,
+               c.*
+        from user a
+                 left join user_role_rel b
+                           on a.user_id = b.user_id
+                 left join role c
+                           on b.role_id = c.role_id
+        where a.username = #{username}
+    </select>
+</mapper>

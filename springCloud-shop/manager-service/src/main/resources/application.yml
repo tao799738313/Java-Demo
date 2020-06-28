@@ -1,0 +1,77 @@
+server:
+  port: 8088
+##注册中心地址
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+##服务名称
+spring:
+  application:
+    name: manager-service
+##数据源
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/manager?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC&nullCatalogMeansCurrent=true
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 50
+      minimum-idle: 10
+  ##redis
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    timeout: 5000ms
+    lettuce:
+      pool:
+        max-active: 8
+        min-idle: 0
+        max-wait: -1ms
+        max-idle: 100
+##收集日志
+  zipkin:
+    enabled: true
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1
+##activiti
+  activiti:
+    database-schema-update: true
+    history-level: full
+    db-history-used: true
+    database-schema: ACTIVITI
+    # activiti后台异步job默认不活动
+    async-executor-activate: false
+##mybatis
+mybatis:
+  type-aliases-package: pers.hmm.shop.manager.entity
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+## 项目security配置
+manage:
+  security:
+    browser:
+      signUpUrl: /signUp.html
+      loginType: JSON
+      loginPage: /login.html
+    code:
+      image:  ##图片验证码
+        length: 6
+        width: 100
+        url: /manager/login
+#    social:
+#      filterProcessesUrl: /qqLogin
+#      qq:
+#        app-id:
+#        app-secret:
+#        providerId: callback.do
+#      weixin:
+#        app-id: wxd99431bbff8305a0
+#        app-secret: 60f78681d063590a469f1b297feff3c4
+

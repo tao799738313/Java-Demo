@@ -1,0 +1,126 @@
+#注册中心
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:10086/eureka
+#应用端口
+server:
+  port: 7001
+
+#设置断路由的超时时间，毫秒
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+
+#应用
+spring:
+  application:
+    name: gateway
+  #------------------------------------------------------------------------
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0       #Redis数据库索引
+    timeout: 1000
+  #------------------------------------------------------------------------
+  zipkin:
+    enabled: true
+    base-url: http://localhost:9411
+    sleuth:
+      sampler:
+        probability: 1
+  #------------------------------------------------------------------------
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        #------------------------------------------------------------------------
+        - id: limiter_route
+          # lb 代表中注册中心获取
+          uri: lb://NSMS-GATEWAY-SERVICE
+          predicates:
+            # 请求路径含/limiter/全部走限流
+            - Path=/limiter/**
+          filters:
+            # 去掉请求前缀 /limiter/
+            - StripPrefix=1
+            # 过滤器
+            - name: LimiterFilterFactory
+              args:
+                replenishRate: 1    #令牌桶每秒填充平均速率,允许用户每秒处理多少个请求
+                burstCapacity: 1    #令牌桶容量，允许在一秒钟内完成的最大请求数
+                limiterKey: ip      #限流键，三种 ip、uri、limiter_key（需要header设置key）
+            - name: Hystrix         #熔断器
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+        #------------------------------------------------------------------------
+        - id: auth_route
+          # lb 代表中注册中心获取
+          uri: lb://NSMS-GATEWAY-SERVICE
+          predicates:
+            # 请求路径含/auth/全部需要验证Token
+            - Path=/auth/**
+            - After=2019-01-20T06:06:06+08:00[Asia/Shanghai]    #过滤器生效时间，更多配置看官方文档 After、Before、Between等
+          filters:
+            # 去掉请求前缀 /auth/
+            - StripPrefix=1
+            # 过滤器
+            - TokenFilterFactory
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+        #------------------------------------------------------------------------
+        - id: sample_service_route
+          uri: lb://NSMS-SAMPLE/
+          predicates:
+            - Path=/sample/**
+          filters:
+            - StripPrefix=1
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+        #------------------------------------------------------------------------
+        - id: item-service_route
+          uri: lb://item-service/
+          predicates:
+            - Path=/item/**
+          filters:
+            - StripPrefix=1
+            - PrefixPath=/
+            - name: Hystrix
+              args:
+                name: fallbackcmd
+                fallbackUri: forward:/fallback
+#开启监控管理端点
+#通过http://localhost:7001/actuator/metrics/查看指标项
+#http://localhost:7001/actuator/metrics/jvm.memory.max 获取指标值
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#------------------------------------------------------------------------
+#错误信息
+err:
+  msg:
+    token: Token错误！
+    limiter: 请求太频繁，请休息一下吧！
+    fallback: 服务暂时不可用！
+#SQL注入关键词
+sql:
+  injection: and|exec|execute|insert|select|delete|update|count|drop|\\*|%|chr|mid|master|truncate|char|declare|sitename|net user|xp_cmdshell|;|or|-|\\+|,|like''|and|exec|execute|insert|create|drop|table|from|grant|use|group_concat|column_name|information_schema.columns|table_schema|union|where|select|delete|update|order|by|count|\\*|chr|mid|master|truncate|char|declare|or|-|--|like|//|/|%
+
+
+

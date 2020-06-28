@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>自定义登录页</title>
+</head>
+<body>
+<form th:action="@{/manager/login}" method="post">
+    <div><label> 用户名: <input type="text" name="username"/> </label></div>
+    <div><label> 密 码: <input type="password" name="password"/> </label></div>
+    <div>
+        <label> 验证码: <input type="text" name="imageCode"/>
+            <img th:src="@{/code/image}">
+        </label>
+    </div>
+    <div><label> 记住我: <input type="checkbox" name="remember-me"/> </label></div>
+    <div><input type="submit" value="登录"/></div>
+</form>
+<form th:action="@{/manager/login}" method="post">
+    <div><label> 手机号: <input type="text" name="mobile"/> </label></div>
+    <div><label> 验证码: <input type="text" name="smsCode"/></label></div>
+    <div><a th:href="@{/code/sms(mobile=12321231313)}">发送</a></div>
+    <div><label> 记住我: <input type="checkbox" name="remember-me"/> </label></div>
+    <div><input type="submit" value="登录"/></div>
+</form>
+<div><a th:href="@{/auth/qq}">qq登录</a></div>
+</body>
+</html>

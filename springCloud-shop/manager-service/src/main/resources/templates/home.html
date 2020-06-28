@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+<h1>Welcome!</h1>
+
+<p>点击 <a th:href="@{/hello}">here</a> to see a greeting.</p>
+<p sec:authorize="hasRole('ROLE_admin')">这是admin角色专属的链接</p>
+</body>
+</html>

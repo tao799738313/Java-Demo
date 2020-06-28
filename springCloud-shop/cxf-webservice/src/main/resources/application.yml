@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: webService
+server:
+  port: 9090
+#  ssl:
+#    client-auth: want
