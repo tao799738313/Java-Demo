@@ -15,11 +15,13 @@
         <option value="$PROJECT_DIR$/ruoyi-common/ruoyi-common-redis/pom.xml" />
         <option value="$PROJECT_DIR$/common/common-redis/pom.xml" />
         <option value="$PROJECT_DIR$/pdt-common/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-7002/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
         <option value="$PROJECT_DIR$/pdt-common/pom.xml" />
+        <option value="$PROJECT_DIR$/test/pom.xml" />
       </set>
     </option>
   </component>

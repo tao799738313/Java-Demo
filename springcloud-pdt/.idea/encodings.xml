@@ -2,18 +2,14 @@
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/common-redis" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/consumer-80" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka-7001" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/eureka-7002" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway-80" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module-order-9001" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module-order-9002" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/module-user-8001" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pdt-common" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/pdt-common" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/pdt-common" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/pdt-common/common-redis" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/pdt-common/common-redis" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pdt-common/common-redis" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>

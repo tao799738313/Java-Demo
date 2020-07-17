@@ -4,22 +4,11 @@ server:
 spring:
   application:
     name: user
-  redis:
-    pool:
-      max-wait: 100
-      max-active: 200
-      max-idle: 10
-      min-idle: -1
-    host: 127.0.0.1
-    port: 6379
-    password:
-    timeout: 1000
 
 eureka:  #设置eureka注册服务的地址
   client:
     service-url:
-      defaultZone: http://localhost:7001/eureka/
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
   instance:
     instance-id: user-8001 #配置服务的别名
     prefer-ip-address: true # 注册的时候使用ip注册
-
