@@ -1,0 +1,14 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: order
+
+eureka:  #设置eureka注册服务的地址
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+  instance:
+    instance-id: order-9002 #配置服务的别名
+    prefer-ip-address: true # 注册的时候使用ip注册
