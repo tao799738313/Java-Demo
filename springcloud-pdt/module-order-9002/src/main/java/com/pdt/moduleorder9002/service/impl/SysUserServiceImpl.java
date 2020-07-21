@@ -32,8 +32,7 @@ public class SysUserServiceImpl implements UserService {
 	 * @param user 用户信息
 	 * @return 角色权限信息
 	 */
-	public Set<String> getRolePermission(User user)
-	{
+	public Set<String> getRolePermission(User user) {
 		Set<String> permissions = new HashSet<>();
 		permissions.add("role:user-view");
 		permissions.add("role:user-add");
@@ -48,8 +47,7 @@ public class SysUserServiceImpl implements UserService {
 	 * @param user 用户信息
 	 * @return 菜单权限信息
 	 */
-	public Set<String> getMenuPermission(User user)
-	{
+	public Set<String> getMenuPermission(User user) {
         Set<String> permissions = new HashSet<>();
 		permissions.add("menu:user");
 		permissions.add("menu:order");

@@ -28,16 +28,16 @@ public class test {
         return "order-9002-redis";
     }
 
-    @PreAuthorize("@ss.hasPermi('pdt')")
-    @GetMapping(value="/pdt")
-    public HttpResult pdt() {
-        return HttpResult.ok("pdt");
+    @PreAuthorize("@ss.hasRole('role')")
+    @GetMapping(value="/role")
+    public HttpResult role() {
+        return HttpResult.ok("role");
     }
 
-    @PreAuthorize("@ss.hasPermi('pdt2')")
-    @GetMapping(value="/pdt2")
-    public HttpResult pdt2() {
-        return HttpResult.ok("pdt2");
+    @PreAuthorize("@ss.hasMenu('menu')")
+    @GetMapping(value="/menu")
+    public HttpResult menu() {
+        return HttpResult.ok("menu");
     }
 
 }
