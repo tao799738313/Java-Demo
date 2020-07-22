@@ -27,6 +27,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException
     {
-        HttpUtils.write("退出");
+        // 去redis把token删了
+        HttpUtils.write("退出成功");
     }
 }

@@ -126,7 +126,7 @@ public class JwtTokenUtils implements Serializable {
 			}
 
 			if(!request.getRequestURI().equals("/login")){
-				// 可以在这里用username去获取redis或者数据库的token，进行有效判断和时效判断
+				// 可以在这里用username去获取redis或者数据库的token
 				// 不通过则authentication返回null
 				System.out.println(request.getRequestURI());
 				System.out.println(username);

@@ -34,12 +34,20 @@ public class LoginController {
         String password = user.getPassword();
 
         // 系统登录认证
-        JwtAuthenticatioToken token = SecurityUtils.login(request, username, password, authenticationManager);
+        JwtAuthenticatioToken jwtAuthenticatioToken = SecurityUtils.login(request, username, password, authenticationManager);
 
         // 把 token 存进 redis 里
+        String token = jwtAuthenticatioToken.getToken();
+
 
         return HttpResult.ok(token);
     }
+
+      // 这个接口不用写
+//    @PostMapping(value = "/logout")
+//    public void logout() throws IOException {
+//
+//    }
 
 
 }

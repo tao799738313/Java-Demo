@@ -17,31 +17,31 @@ public class test {
     @Autowired
     RedisService redisService;
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String main(String[] args) {
         return "order-9002";
     }
 
-    @RequestMapping("/redis")
+    @GetMapping("/redis")
     public String redis(String[] args) {
         redisService.setCacheObject("redis-9002","redis-9002");
         return "order-9002-redis";
     }
 
     @PreAuthorize("@ss.hasRole('role')")
-    @GetMapping(value="/role")
+    @RequestMapping(value="/role")
     public HttpResult role() {
         return HttpResult.ok("role");
     }
 
     @PreAuthorize("@ss.hasMenu('menu')")
-    @GetMapping(value="/menu")
+    @RequestMapping(value="/menu")
     public HttpResult menu() {
         return HttpResult.ok("menu");
     }
 
     @PreAuthorize("@ss.hasMenu('menu2')")
-    @GetMapping(value="/menu2")
+    @RequestMapping(value="/menu2")
     public HttpResult menu2() {
         return HttpResult.ok("menu2");
     }
