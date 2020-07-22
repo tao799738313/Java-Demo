@@ -26,6 +26,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
             throws IOException
     {
+        // 登陆的错误
         HttpUtils.write(response,JSON.toJSONString(HttpResult.error(e.getMessage())));
     }
 }

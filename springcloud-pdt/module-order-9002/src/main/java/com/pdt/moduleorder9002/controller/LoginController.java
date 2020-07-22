@@ -3,13 +3,12 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.pdt.moduleorder9002.model.User;
 import com.pdt.moduleorder9002.security.JwtAuthenticatioToken;
 import com.pdt.moduleorder9002.utils.SecurityUtils;
 import com.pdt.moduleorder9002.vo.HttpResult;
-import com.pdt.moduleorder9002.vo.LoginBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,12 +28,15 @@ public class LoginController {
      * 登录接口
      */
     @PostMapping(value = "/login")
-    public HttpResult login(@RequestBody LoginBean loginBean, HttpServletRequest request) throws IOException {
-        String username = loginBean.getUsername();
-        String password = loginBean.getPassword();
+    public HttpResult login(@RequestBody User user, HttpServletRequest request) throws IOException {
+
+        String username = user.getUsername();
+        String password = user.getPassword();
 
         // 系统登录认证
         JwtAuthenticatioToken token = SecurityUtils.login(request, username, password, authenticationManager);
+
+        // 把 token 存进 redis 里
 
         return HttpResult.ok(token);
     }

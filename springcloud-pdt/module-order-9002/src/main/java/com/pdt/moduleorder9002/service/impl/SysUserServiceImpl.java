@@ -15,6 +15,7 @@ public class SysUserServiceImpl implements UserService {
 	@Override
 	public User findByUsername(String username) {
 		if(username.equals("admin")){
+			// 从数据库查出user
 			User user = new User();
 			user.setId(1L);
 			user.setUsername(username);

@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 
         User user = userService.findByUsername(username);
         if (user == null) {
-            throw new RuntimeException("无该用户");
+            throw new RuntimeException("无用户");
         }
         return new JwtUserDetails(user);
     }

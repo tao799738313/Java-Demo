@@ -40,4 +40,10 @@ public class test {
         return HttpResult.ok("menu");
     }
 
+    @PreAuthorize("@ss.hasMenu('menu2')")
+    @GetMapping(value="/menu2")
+    public HttpResult menu2() {
+        return HttpResult.ok("menu2");
+    }
+
 }

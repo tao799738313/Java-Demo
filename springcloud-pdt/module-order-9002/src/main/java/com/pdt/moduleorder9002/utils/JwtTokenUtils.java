@@ -98,15 +98,17 @@ public class JwtTokenUtils implements Serializable {
 		Authentication authentication = null;
 		// 获取请求携带的令牌
 		String token = JwtTokenUtils.getToken(request);
+		String username = null;
 		if(token != null) {
 			// 请求令牌不能为空
-			if(SecurityUtils.getAuthentication() == null) {
+			authentication = SecurityUtils.getAuthentication();
+			if(authentication == null) {
 				// 上下文中Authentication为空
 				Claims claims = getClaimsFromToken(token);
 				if(claims == null) {
 					return null;
 				}
-				String username = claims.getSubject();
+				username = claims.getSubject();
 				if(username == null) {
 					return null;
 				}
@@ -116,11 +118,24 @@ public class JwtTokenUtils implements Serializable {
 				List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 				authentication = new JwtAuthenticatioToken(username, null, authorities, token);
 			} else {
-				if(validateToken(token, SecurityUtils.getUsername())) {
+				username = SecurityUtils.getUsername();
+				if(!validateToken(token, username)) {
 					// 如果上下文中Authentication非空，且请求令牌合法，直接返回当前登录认证信息
-					authentication = SecurityUtils.getAuthentication();
+					return null;
 				}
 			}
+
+			if(!request.getRequestURI().equals("/login")){
+				// 可以在这里用username去获取redis或者数据库的token，进行有效判断和时效判断
+				// 不通过则authentication返回null
+				System.out.println(request.getRequestURI());
+				System.out.println(username);
+				System.out.println(token);
+				if(false){
+					return null;
+				}
+			}
+
 		}
 		return authentication;
 	}
@@ -148,8 +163,14 @@ public class JwtTokenUtils implements Serializable {
 	 * @return
 	 */
 	public static Boolean validateToken(String token, String username) {
+		if(token==null || username==null){
+			return false;
+		}
 	    String userName = getUsernameFromToken(token);
-	    return (userName.equals(username) && !isTokenExpired(token));
+		if(userName==null){
+			return false;
+		}
+		return (userName.equals(username) && !isTokenExpired(token));
 	}
 
 	/**
