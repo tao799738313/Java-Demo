@@ -1,6 +1,8 @@
-spring:
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password:
-    timeout: 3600ms #超时时间
+# 配置是在使用该模块的地方进行配置
+# 这个项目不需要配置
+#spring:
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password:
+#    timeout: 3600ms #超时时间

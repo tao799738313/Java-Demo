@@ -9,8 +9,7 @@ spring:
     port: 6379
     password: 123456
     timeout: 3600ms #超时时间
-    
-    
+
 eureka:  #设置eureka注册服务的地址
   client:
     service-url:

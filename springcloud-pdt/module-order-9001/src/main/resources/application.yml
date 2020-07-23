@@ -12,3 +12,6 @@ eureka:  #设置eureka注册服务的地址
   instance:
     instance-id: order-9001 #配置服务的别名
     prefer-ip-address: true # 注册的时候使用ip注册
+
+logging:
+  config: classpath:logger-config.xml
