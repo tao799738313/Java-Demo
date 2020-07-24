@@ -1,0 +1,17 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: order
+
+eureka:  #设置eureka注册服务的地址
+  client:
+    service-url:
+      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
+  instance:
+    instance-id: order-9001 #配置服务的别名
+    prefer-ip-address: true # 注册的时候使用ip注册
+
+logging:
+  config: classpath:logger-config.xml
