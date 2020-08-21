@@ -1,2 +1,0 @@
-logging:
-  config: classpath:logger-config.xml
