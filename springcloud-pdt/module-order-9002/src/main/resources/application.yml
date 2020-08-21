@@ -1,0 +1,66 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: order
+  datasource:
+    #数据库地址
+    url: jdbc:mysql://120.25.145.229:3306/mydb?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+    #用户名
+    username: root
+    #密码
+    password: password     #123456
+    #mysql驱动
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 120.25.145.229
+    port: 6379
+    password: 123456
+    timeout: 3600ms # 超时时间
+#    jedis:
+#      pool:
+#        #最大连接数据库连接数,设 0 为没有限制
+#        max-active: 8
+#        #最大等待连接中的数量,设 0 为没有限制
+#        max-idle: 8
+#        #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+#        max-wait: -1ms
+#        #最小等待连接中的数量,设 0 为没有限制
+#        min-idle: 0
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        max-wait: -1ms
+        min-idle: 0
+
+eureka:  #设置eureka注册服务的地址
+  client:
+    service-url:
+      defaultZone: http://a.pdt1997.top:7001/eureka/  #,http://eureka7002:7002/eureka/
+  instance:
+    instance-id: order-9002 #配置服务的别名
+    prefer-ip-address: true # 注册的时候使用ip注册
+
+
+mybatis-plus:
+  configuration:
+    #sql日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 驼峰转化
+    map-underscore-to-camel-case: true
+    # 启动二级缓存
+    cache-enabled: true
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+
+#控制台打印加载
+#debug: true
+
+
+#logging:
+#  config: classpath:log4j2.xml

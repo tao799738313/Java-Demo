@@ -1,0 +1,26 @@
+
+# 命令是 docker-compose up -f [文件名] -d
+# tracker和storage可以执行在不同的机器上
+# 返回的图片端口是8080，防火墙和安全组要打开22122，23000，8080
+# 这样配置之后 用java连接client 多个storage集群时，上传没有问题，删除和下载需要循环访问N次才可以
+
+# 这个是最简易的单机版，不支持扩容和分组，启动了就能用
+
+version: '2'
+services:
+  tracker:
+    image: ygqygq2/fastdfs-nginx:latest
+    command: tracker
+    network_mode: host
+    volumes:
+      - ./tracker:/var/fdfs
+  storage:
+    image: ygqygq2/fastdfs-nginx:latest
+    command: storage
+    network_mode: host
+    environment:
+      # 参数的顺序有讲究，第一个不能填自己的ip地址，除非只有一个
+      # 填多个之后，即使文件不在a机器上，也能在b的ip地址访问到
+      - TRACKER_SERVER=47.99.246.57:22122
+    volumes:
+      - ./storage:/var/fdfs

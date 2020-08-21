@@ -1,0 +1,54 @@
+server:
+  port: 8001
+
+spring:
+  application:
+    name: user
+  servlet:
+    multipart:
+      max-file-size: 100MB # 最大支持文件大小
+      max-request-size: 100MB # 最大支持请求大小
+
+
+#eureka:  #设置eureka注册服务的地址
+#  client:
+#    service-url:
+#      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
+#  instance:
+#    instance-id: user-8001 #配置服务的别名
+#    prefer-ip-address: true # 注册的时候使用ip注册
+
+
+eureka:  #设置eureka注册服务的地址
+  client:
+    service-url:
+      defaultZone: http://a.pdt1997.top:7001/eureka/
+  instance:
+    instance-id: user-8001 #配置服务的别名
+    prefer-ip-address: true # 注册的时候使用ip注册
+
+
+# 分布式文件系统FDFS配置
+fdfs:
+  soTimeout: 1500 #socket连接超时时长
+  connectTimeout: 600 #连接tracker服务器超时时长
+  reqHost: 47.99.246.57   #nginx访问地址
+  reqPort: 7003          #nginx访问端口
+  thumbImage: #缩略图生成参数，可选
+    width: 150
+    height: 150
+  trackerList: #TrackerList参数,支持多个，我这里只有一个，如果有多个在下方加- x.x.x.x:port
+    # - 47.99.208.244:22122
+#    - 47.99.208.244:22123
+    - 47.99.246.57:22122
+  pool:
+    #从池中借出的对象的最大数目（配置为-1表示不限制）
+    max-total: -1
+    #获取连接时的最大等待毫秒数(默认配置为5秒)
+    max-wait-millis: 5000
+    #每个key最大连接数
+    max-total-per-key: 50
+    #每个key对应的连接池最大空闲连接数
+    max-idle-per-key: 10
+    #每个key对应的连接池最小空闲连接数
+    max_idle_per_key: 5

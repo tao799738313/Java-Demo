@@ -1,0 +1,25 @@
+server:
+  port: 9001
+
+spring:
+  profiles:
+    active: prod # dev # prod # 统一的配置写在这个文件，不统一的就写在各自环境的文件里
+  application:
+    name: order
+
+#eureka:  #设置eureka注册服务的地址
+#  client:
+#    service-url:
+#      defaultZone: http://eureka7001:7001/eureka/,http://eureka7002:7002/eureka/
+#  instance:
+#    instance-id: order-9001 #配置服务的别名
+#    prefer-ip-address: true # 注册的时候使用ip注册
+
+
+eureka:  #设置eureka注册服务的地址
+  client:
+    service-url:
+      defaultZone: http://a.pdt1997.top:7001/eureka/
+  instance:
+    instance-id: order-9001 #配置服务的别名
+    prefer-ip-address: true # 注册的时候使用ip注册
